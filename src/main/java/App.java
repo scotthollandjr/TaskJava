@@ -15,16 +15,15 @@ public class App {
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
-    // get("/detector", (request, response) -> {
-    //   Map<String, Object> model = new HashMap<String, Object>();
-    //
-    //   String userInput = request.queryParams("formInputName");
-    //   App newApp = new App();
-    //   String varName = newApp.methodName(userInput);
-    //   model.put("varName", varName);
-    //
-    //   model.put("template", "templates/detector.vtl");
-    //   return new ModelAndView(model, "templates/layout.vtl");
-    // }, new VelocityTemplateEngine());
+    post("/tasks", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+
+      String description = request.queryParams("description");
+      Task newTask = new Task(description);
+      request.session().attribute("task", newTask);
+
+      model.put("template", "templates/success.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
   }
 }
