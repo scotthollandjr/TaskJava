@@ -1,3 +1,4 @@
+import static org.fluentlenium.core.filter.FilterConstructor.*;
 import org.fluentlenium.adapter.FluentTest;
 import org.junit.ClassRule;
 import org.junit.Test;
@@ -29,5 +30,14 @@ public class AppTest extends FluentTest {
     fill("#description").with("Mow the lawn");
     submit(".btn");
     assertThat(pageSource()).contains("Your task has been saved.");
+  }
+
+  @Test
+  public void taskIsDisplayedTest() {
+    goTo("http://localhost:4567/");
+    fill("#description").with("Mow the lawn");
+    submit(".btn");
+    click("a", withText("Go Back"));
+    assertThat(pageSource()).contains("Mow the lawn");
   }
 }
