@@ -1,9 +1,18 @@
 import org.junit.*;
 import static org.junit.Assert.*;
+import org.junit.Rule;
 import java.util.ArrayList;
 import java.time.LocalDateTime;
 
 public class TaskTest {
+  @After
+  public void tearDown() {
+    Task.clear();
+  }
+
+  // @Rule
+  // public ClearRule clearRule = new ClearRule();
+  // This works as well as @After.
 
   @Test
   public void Task_instantiateCorrectly_true() {
@@ -46,7 +55,6 @@ public class TaskTest {
 
   @Test
   public void getId_tasksInstantiatesWithAnID_1() {
-    Task.clear();
     Task myTask = new Task("Bring Appa");
     assertEquals(1, myTask.getId());
   }

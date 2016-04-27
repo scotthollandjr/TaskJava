@@ -5,6 +5,7 @@ public class ClearRule extends ExternalResource {
   protected void before() {}
 
   protected void after() {
+    Category.clear();
     Task.clear();
   }
 }
