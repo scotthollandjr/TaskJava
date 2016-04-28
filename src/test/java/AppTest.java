@@ -60,19 +60,21 @@ public class AppTest extends FluentTest {
       click("a", withText("Add a new task"));
       assertThat(pageSource()).contains("Add a task to Shopping");
     }
-  //
-  // @Test
-  // public void multipleTasksAreDisplayedTest() {
-  //   goTo("http://localhost:4567/tasks/new");
-  //   fill("#description").with("Mow the lawn");
-  //   submit(".btn");
-  //   goTo("http://localhost:4567/tasks/new");
-  //   fill("#description").with("Buy groceries");
-  //   submit(".btn");
-  //   click("a", withText("View tasks"));
-  //   assertThat(pageSource()).contains("Mow the lawn");
-  //   assertThat(pageSource()).contains("Buy groceries");
-  // }
+
+    @Test
+    public void tasksIsAddedAndDisplayed() {
+      goTo("http://localhost:4567/categories/new");
+      fill("#newCategory").with("Banking");
+      submit(".btn");
+      click("a", withText("View categories"));
+      click("a", withText("Banking"));
+      click("a", withText("Add a new task"));
+      fill("#description").with("Deposit paycheck");
+      submit(".btn");
+      click("a", withText("View categories"));
+      click("a", withText("Banking"));
+      assertThat(pageSource()).contains("Deposit paycheck");
+    }
   //
   // @Test
   // public void taskShowPageDisplaysDescription() {
