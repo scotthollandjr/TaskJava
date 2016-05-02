@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="TaskTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2016-04-28T17:25:46" hostname="epicodus-55.local" time="0.002">
+<testsuite name="TaskTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2016-05-02T18:41:48" hostname="epicodus-54.local" time="0.088">
   <properties/>
-  <testcase name="find_returnsNullWhenNoTaskFound_null" classname="TaskTest" time="0.0"/>
-  <testcase name="task_instantiatesCorrectly_true" classname="TaskTest" time="0.0"/>
-  <testcase name="getId_tasksInstantiateWithAnID_1" classname="TaskTest" time="0.0"/>
-  <testcase name="getCreatedAt_instantiatesWithCurrentTime_today" classname="TaskTest" time="0.0"/>
-  <testcase name="isCompleted_isFalseAfterInstantiation_false" classname="TaskTest" time="0.0"/>
-  <testcase name="all_returnsAllInstancesOfTask_true" classname="TaskTest" time="0.0"/>
-  <testcase name="find_returnsTaskWithSameId_secondTask" classname="TaskTest" time="0.0"/>
-  <testcase name="clear_emptiesAllTasksFromArrayList_0" classname="TaskTest" time="0.0"/>
-  <testcase name="task_instantiatesWithDescription_String" classname="TaskTest" time="0.0"/>
+  <testcase name="find_returnsNullWhenNoTaskFound_null" classname="TaskTest" time="0.01"/>
+  <testcase name="save_returnsTrueIfDescriptionsAretheSame" classname="TaskTest" time="0.014"/>
+  <testcase name="save_savesCategoryIdIntoDB_true" classname="TaskTest" time="0.019"/>
+  <testcase name="task_instantiatesCorrectly_true" classname="TaskTest" time="0.005"/>
+  <testcase name="getDescription_instantiatesWithDescription_String" classname="TaskTest" time="0.005"/>
+  <testcase name="all_emptyAtFirst" classname="TaskTest" time="0.009"/>
+  <testcase name="save_assignsIdToObject" classname="TaskTest" time="0.013"/>
+  <testcase name="find_findsTaskInDatabase_true" classname="TaskTest" time="0.013"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

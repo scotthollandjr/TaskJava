@@ -1,45 +1,72 @@
-import java.util.ArrayList;
+import java.util.List;
+import org.sql2o.*;
+import java.util.Arrays;
 
 public class Category {
-  private String mCategoryName;
-  private static ArrayList<Category> categoryArray = new ArrayList<Category>();
-  private int mId;
-  private ArrayList<Task> mTasks;
+  private int id;
+  private String name;
 
   public Category(String name) {
-    mCategoryName = name;
-    categoryArray.add(this);
-    mId = categoryArray.size();
-    mTasks = new ArrayList<Task>();
+    this.name = name;
   }
 
-  public String getName(){
-    return mCategoryName;
-  }
-
-  public static ArrayList<Category> getCategories(){
-    return categoryArray;
-  }
-
-  public static void clear() {
-    categoryArray.clear();
+  public String getName() {
+    return name;
   }
 
   public int getId() {
-    return mId;
+    return id;
+  }
+
+  public static List<Category> all() {
+    String sql = "SELECT id, name FROM categories";
+    try(Connection con = DB.sql2o.open()) {
+      return con.createQuery(sql).executeAndFetch(Category.class);
+    }
+  }
+
+  @Override
+  public boolean equals(Object otherCategory) {
+    if (!(otherCategory instanceof Category)) {
+      return false;
+    } else {
+      Category newCategory = (Category) otherCategory;
+      return this.getName().equals(newCategory.getName()) &&
+             this.getId() == newCategory.getId();
+    }
+  }
+
+  public void save() {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "INSERT INTO categories(name) VALUES (:name)";
+      this.id = (int) con.createQuery(sql, true)
+        .addParameter("name", this.name)
+        .executeUpdate()
+        .getKey();
+    }
   }
 
   public static Category find(int id) {
-    try {
-      return categoryArray.get(id - 1);
-    } catch (IndexOutOfBoundsException e) {
-      return null;
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "SELECT * FROM categories where id=:id";
+      Category category = con.createQuery(sql)
+        .addParameter("id", id)
+        .executeAndFetchFirst(Category.class);
+      return category;
     }
   }
-  public ArrayList<Task> getTasks() {
-    return mTasks;
+
+  public List<Task> getTasks() {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "SELECT * FROM tasks where categoryId=:id";
+      return con.createQuery(sql)
+        .addParameter("id", this.id)
+        .executeAndFetch(Task.class);
+    }
   }
-  public void addTask(Task task) {
-    mTasks.add(task);
-  }
+
 }
+
+  // public void addTask(Task task) {
+  //   mTasks.add(task);
+  // }
