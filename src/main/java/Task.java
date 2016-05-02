@@ -1,3 +1,5 @@
+import java.util.Date;
+import java.sql.Timestamp;
 import java.util.List;
 import org.sql2o.*;
 
@@ -5,10 +7,12 @@ public class Task {
   private int id;
   private String description;
   private int categoryId;
+  private String due_date;
 
-  public Task(String description, int categoryId) {
+  public Task(String description, int categoryId, String due_date) {
     this.description = description;
     this.categoryId = categoryId;
+    this.due_date = due_date;
   }
 
   public String getDescription() {
@@ -44,10 +48,11 @@ public class Task {
 
   public void save() {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "INSERT INTO tasks(description, categoryId) VALUES (:description, :categoryId)";
+      String sql = "INSERT INTO tasks(description, categoryId, due_date) VALUES (:description, :categoryId, :due_date)";
       this.id = (int) con.createQuery(sql, true)
         .addParameter("description", this.description)
         .addParameter("categoryId", this.categoryId)
+        .addParameter("due_date", this.due_date)
         .executeUpdate()
         .getKey();
     }

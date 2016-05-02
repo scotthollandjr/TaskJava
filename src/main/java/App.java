@@ -1,3 +1,6 @@
+import java.util.Date;
+import java.util.List;
+import java.sql.Timestamp;
 import java.util.HashMap;
 import spark.ModelAndView;
 import spark.template.velocity.VelocityTemplateEngine;
@@ -54,20 +57,15 @@ public class App {
 
     post("/tasks", (request, response) -> {
       HashMap<String, Object> model = new HashMap<String, Object>();
-
       Category category = Category.find(Integer.parseInt(request.queryParams("categoryId")));
-
       String description = request.queryParams("description");
-
-      Task newTask = new Task(description, category.getId());
-
+      String due_date = request.queryParams("due-date");
+      Task newTask = new Task(description, category.getId(), due_date);
       newTask.save();
-
       model.put("category", category);
       model.put("template", "templates/category-tasks-success.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
-
 
     get("tasks/new", (request, response) -> {
       HashMap<String, Object> model = new HashMap<String, Object>();
@@ -89,6 +87,5 @@ public class App {
       model.put("template", "templates/task.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
-
   }
 }

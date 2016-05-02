@@ -58,15 +58,10 @@ public class Category {
 
   public List<Task> getTasks() {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "SELECT * FROM tasks where categoryId=:id";
+      String sql = "SELECT * FROM tasks where categoryId=:id ORDER BY due_date ASC";
       return con.createQuery(sql)
         .addParameter("id", this.id)
         .executeAndFetch(Task.class);
     }
   }
-
 }
-
-  // public void addTask(Task task) {
-  //   mTasks.add(task);
-  // }
