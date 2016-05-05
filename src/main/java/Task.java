@@ -1,18 +1,12 @@
-import java.util.Date;
-import java.sql.Timestamp;
 import java.util.List;
 import org.sql2o.*;
 
 public class Task {
   private int id;
   private String description;
-  private int categoryId;
-  private String due_date;
 
-  public Task(String description, int categoryId, String due_date) {
+  public Task(String description) {
     this.description = description;
-    this.categoryId = categoryId;
-    this.due_date = due_date;
   }
 
   public String getDescription() {
@@ -23,12 +17,8 @@ public class Task {
     return id;
   }
 
-  public int getCategoryId() {
-    return categoryId;
-  }
-
   public static List<Task> all() {
-    String sql = "SELECT id, description, categoryId FROM tasks";
+    String sql = "SELECT id, description FROM tasks";
     try(Connection con = DB.sql2o.open()) {
       return con.createQuery(sql).executeAndFetch(Task.class);
     }
@@ -41,18 +31,15 @@ public class Task {
     } else {
       Task newTask = (Task) otherTask;
       return this.getDescription().equals(newTask.getDescription()) &&
-             this.getId() == newTask.getId() &&
-             this.getCategoryId() == newTask.getCategoryId();
+             this.getId() == newTask.getId();
     }
   }
 
   public void save() {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "INSERT INTO tasks(description, categoryId, due_date) VALUES (:description, :categoryId, :due_date)";
+      String sql = "INSERT INTO tasks(description) VALUES (:description)";
       this.id = (int) con.createQuery(sql, true)
         .addParameter("description", this.description)
-        .addParameter("categoryId", this.categoryId)
-        .addParameter("due_date", this.due_date)
         .executeUpdate()
         .getKey();
     }
@@ -68,5 +55,23 @@ public class Task {
     }
   }
 
+  public void update(String newDescription) {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "UPDATE tasks SET description = :description WHERE id = :id";
+      con.createQuery(sql)
+        .addParameter("description", newDescription)
+        .addParameter("id", this.id)
+        .executeUpdate();
+    }
+  }
+
+  public void delete() {
+    try(Connection con = DB.sql2o.open()) {
+    String sql = "DELETE FROM tasks WHERE id = :id;";
+    con.createQuery(sql)
+      .addParameter("id", this.id)
+      .executeUpdate();
+    }
+  }
 
 }

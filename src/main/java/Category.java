@@ -1,6 +1,5 @@
 import java.util.List;
 import org.sql2o.*;
-import java.util.Arrays;
 
 public class Category {
   private int id;
@@ -19,7 +18,7 @@ public class Category {
   }
 
   public static List<Category> all() {
-    String sql = "SELECT id, name FROM categories";
+    String sql = "SELECT id, name FROM Categories";
     try(Connection con = DB.sql2o.open()) {
       return con.createQuery(sql).executeAndFetch(Category.class);
     }
@@ -38,7 +37,7 @@ public class Category {
 
   public void save() {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "INSERT INTO categories(name) VALUES (:name)";
+      String sql = "INSERT INTO Categories(name) VALUES (:name)";
       this.id = (int) con.createQuery(sql, true)
         .addParameter("name", this.name)
         .executeUpdate()
@@ -48,7 +47,7 @@ public class Category {
 
   public static Category find(int id) {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "SELECT * FROM categories where id=:id";
+      String sql = "SELECT * FROM Categories where id=:id";
       Category category = con.createQuery(sql)
         .addParameter("id", id)
         .executeAndFetchFirst(Category.class);
@@ -56,12 +55,13 @@ public class Category {
     }
   }
 
-  public List<Task> getTasks() {
+  public void addTask(Task task) {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "SELECT * FROM tasks where categoryId=:id ORDER BY due_date ASC";
-      return con.createQuery(sql)
-        .addParameter("id", this.id)
-        .executeAndFetch(Task.class);
+      String sql = "INSERT INTO categories_tasks (category_id, task_id) VALUES (:category_id, :task_id)";
+      con.createQuery(sql)
+        .addParameter("category_id", this.getId())
+        .addParameter("task_id", task.getId())
+        .executeUpdate();
     }
   }
 }

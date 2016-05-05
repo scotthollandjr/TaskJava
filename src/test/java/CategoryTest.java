@@ -6,20 +6,8 @@ import java.util.List;
 
 public class CategoryTest {
 
-  @Before
-  public void setUp() {
-    DB.sql2o = new Sql2o("jdbc:postgresql://localhost:5432/to_do_test", null, null);
-  }
-
-  @After
-  public void tearDown() {
-    try(Connection con = DB.sql2o.open()) {
-      String deleteTasksQuery = "DELETE FROM tasks *;";
-      String deleteCategoriesQuery = "DELETE FROM categories *;";
-      con.createQuery(deleteTasksQuery).executeUpdate();
-      con.createQuery(deleteCategoriesQuery).executeUpdate();
-    }
-  }
+  @Rule
+  public DatabaseRule database = new DatabaseRule();
 
   @Test
   public void Category_instantiatesCorrectly_true() {
@@ -34,26 +22,26 @@ public class CategoryTest {
   }
 
   @Test
-  public void all_emptyAtFirst() {
-    assertEquals(Category.all().size(), 0);
+  public void all_emptyAtFirst_0() {
+    assertEquals(0, Category.all().size());
   }
 
   @Test
-  public void equals_returnsTrueIfNamesAretheSame() {
+  public void equals_returnsTrueIfNamesAretheSame_true() {
     Category firstCategory = new Category("Household chores");
     Category secondCategory = new Category("Household chores");
     assertTrue(firstCategory.equals(secondCategory));
   }
 
   @Test
-  public void save_savesIntoDatabase_true() {
+  public void save_savesObjectIntoDatabase_true() {
     Category myCategory = new Category("Household chores");
     myCategory.save();
     assertTrue(Category.all().get(0).equals(myCategory));
   }
 
   @Test
-  public void save_assignsIdToObject() {
+  public void save_assignsIdToObject_int() {
     Category myCategory = new Category("Household chores");
     myCategory.save();
     Category savedCategory = Category.all().get(0);
@@ -69,14 +57,25 @@ public class CategoryTest {
   }
 
   @Test
-  public void getTasks_retrievesALlTasksFromDatabase_tasksList() {
+  public void addTask_addsTaskToCategory_true() {
     Category myCategory = new Category("Household chores");
     myCategory.save();
-    Task firstTask = new Task("Mow the lawn", myCategory.getId(), "2000-00-00");
-    firstTask.save();
-    Task secondTask = new Task("Do the dishes", myCategory.getId(), "2000-00-00");
-    secondTask.save();
-    Task[] tasks = new Task[] { firstTask, secondTask };
-    assertTrue(myCategory.getTasks().containsAll(Arrays.asList(tasks)));
+    Task myTask = new Task("Mow the lawn");
+    myTask.save();
+    myCategory.addTask(myTask);
+    Task savedTask = myCategory.getTasks().get(0);
+    assertTrue(myTask.equals(savedTask));
   }
+
+  @Test
+  public void getTasks_returnsAllTasks_List() {
+    Category myCategory = new Category("Household chores");
+    myCategory.save();
+    Task myTask = new Task("Mow the lawn");
+    myTask.save();
+    myCategory.addTask(myTask);
+    List savedTasks = myCategory.getTasks();
+    assertEquals(1, savedTasks.size());
+  }
+
 }
