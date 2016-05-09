@@ -24,6 +24,7 @@ public class App {
     get("/tasks", (request, response) -> {
       HashMap<String, Object> model = new HashMap<String, Object>();
       model.put("tasks", Task.all());
+      model.put("comTasks", Task.allCompleted());
       model.put("template", "templates/tasks.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
@@ -145,6 +146,15 @@ public class App {
       category.delete();
       model.put("category", category);
       model.put("template", "templates/categories.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    post("/tasks/:id/complete", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      Task task = Task.find(Integer.parseInt(request.params("id")));
+      task.complete();
+      model.put("task", task);
+      model.put("template", "templates/tasks.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
   }

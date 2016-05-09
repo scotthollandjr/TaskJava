@@ -24,6 +24,10 @@
 
 <p><a href="/tasks/$task.getId()/edit">Edit this task</a></p>
 
+<form action="/tasks/$task.getId()/complete" method="post">
+  <button type="submit" class="btn btn-info">Complete this task</button>
+</form>
+
 <form action="/tasks/$task.getId()/delete" method="post">
   <button type="submit" class="btn btn-info">Delete this task</button>
 </form>

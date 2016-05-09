@@ -6,10 +6,12 @@ public class Task {
   private int id;
   private String description;
   private String date;
+  private Boolean completed;
 
   public Task(String description, String date) {
     this.description = description;
     this.date = date;
+    this.completed = false;
   }
 
   public String getDescription() {
@@ -25,9 +27,12 @@ public class Task {
   }
 
   public static List<Task> all() {
-    String sql = "SELECT id, description, date FROM tasks ORDER BY date ASC;";
     try(Connection con = DB.sql2o.open()) {
-      return con.createQuery(sql).executeAndFetch(Task.class);
+      String allQuery = "SELECT id, description, date FROM tasks WHERE completed= :false ORDER BY date ASC;";
+      List<Task> all = con.createQuery(allQuery)
+        .addParameter("false", false)
+        .executeAndFetch(Task.class);
+        return all;
     }
   }
 
@@ -44,10 +49,11 @@ public class Task {
 
   public void save() {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "INSERT INTO tasks(description, date) VALUES (:description, :date);";
+      String sql = "INSERT INTO tasks(description, date, completed) VALUES (:description, :date, :completed);";
       this.id = (int) con.createQuery(sql, true)
         .addParameter("description", this.description)
         .addParameter("date", this.date)
+        .addParameter("completed", this.completed)
         .executeUpdate()
         .getKey();
     }
@@ -116,4 +122,25 @@ public class Task {
           .executeUpdate();
     }
   }
+
+  public void complete() {
+    try(Connection con = DB.sql2o.open()) {
+      String completeQuery = "UPDATE tasks SET completed = true WHERE id = :id;";
+      con.createQuery(completeQuery)
+        .addParameter("id", this.getId())
+        .executeUpdate();
+
+    }
+  }
+
+  public static List<Task> allCompleted() {
+    try(Connection con = DB.sql2o.open()) {
+      String completeQuery = "SELECT id, description, date FROM tasks WHERE completed = :true ORDER BY date ASC;";
+      List<Task> allCompleted = con.createQuery(completeQuery)
+        .addParameter("true", true)
+        .executeAndFetch(Task.class);
+        return allCompleted;
+      }
+    }
+
 }

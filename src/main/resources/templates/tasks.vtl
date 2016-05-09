@@ -6,6 +6,15 @@
   #end
 </ul>
 
+<h2>Completed tasks</h2>
+
+<ul>
+  #foreach ($comTask in $comTasks)
+    <li><a href="/tasks/$task.getId()">$comTask.getDescription()</a>, $comTask.getDate()</li>
+  #end
+</ul>
+
+
 <p>Add a new task:</p>
 
 <form action="/tasks" method="post">
