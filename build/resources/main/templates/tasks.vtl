@@ -2,15 +2,21 @@
 
 <ul>
   #foreach ($task in $tasks)
-    <li><a href="/tasks/$task.getId()">$task.getDescription()</a></li>
+    <li><a href="/tasks/$task.getId()">$task.getDescription()</a>, $task.getDate()</li>
   #end
 </ul>
 
 <p>Add a new task:</p>
 
 <form action="/tasks" method="post">
-  <label for="description">Task description</label>
-  <input id="description" name="description" type="text">
+  <div class="form-group">
+    <label for="description">Task description</label>
+    <input class="form-control" id="description" name="description" type="text">
+  </div>
+  <div class="form-group">
+    <label for="date">Due date:</label>
+    <input class="form-control" type="date" name="date" id="date">
+  </div>
   <button type="submit" class="btn btn-success">Add Task</button>
 </form>
 

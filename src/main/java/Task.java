@@ -5,13 +5,19 @@ import org.sql2o.*;
 public class Task {
   private int id;
   private String description;
+  private String date;
 
-  public Task(String description) {
+  public Task(String description, String date) {
     this.description = description;
+    this.date = date;
   }
 
   public String getDescription() {
     return description;
+  }
+
+  public String getDate() {
+    return date;
   }
 
   public int getId() {
@@ -19,7 +25,7 @@ public class Task {
   }
 
   public static List<Task> all() {
-    String sql = "SELECT id, description FROM tasks";
+    String sql = "SELECT id, description, date FROM tasks ORDER BY date ASC;";
     try(Connection con = DB.sql2o.open()) {
       return con.createQuery(sql).executeAndFetch(Task.class);
     }
@@ -38,9 +44,10 @@ public class Task {
 
   public void save() {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "INSERT INTO tasks(description) VALUES (:description)";
+      String sql = "INSERT INTO tasks(description, date) VALUES (:description, :date);";
       this.id = (int) con.createQuery(sql, true)
         .addParameter("description", this.description)
+        .addParameter("date", this.date)
         .executeUpdate()
         .getKey();
     }
@@ -48,7 +55,7 @@ public class Task {
 
   public static Task find(int id) {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "SELECT * FROM tasks where id=:id";
+      String sql = "SELECT * FROM tasks where id=:id;";
       Task task = con.createQuery(sql)
         .addParameter("id", id)
         .executeAndFetchFirst(Task.class);
@@ -58,7 +65,7 @@ public class Task {
 
   public void update(String newDescription) {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "UPDATE tasks SET description = :description WHERE id = :id";
+      String sql = "UPDATE tasks SET description = :description WHERE id = :id;";
       con.createQuery(sql)
         .addParameter("description", newDescription)
         .addParameter("id", this.id)
@@ -68,7 +75,7 @@ public class Task {
 
   public void addCategory(Category category) {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "INSERT INTO categories_tasks (category_id, task_id) VALUES (:category_id, :task_id)";
+      String sql = "INSERT INTO categories_tasks (category_id, task_id) VALUES (:category_id, :task_id);";
       con.createQuery(sql)
         .addParameter("category_id", category.getId())
         .addParameter("task_id", this.getId())
@@ -78,7 +85,7 @@ public class Task {
 
   public List<Category> getCategories() {
     try(Connection con = DB.sql2o.open()){
-      String joinQuery = "SELECT category_id FROM categories_tasks WHERE task_id = :task_id";
+      String joinQuery = "SELECT category_id FROM categories_tasks WHERE task_id = :task_id;";
       List<Integer> categoryIds = con.createQuery(joinQuery)
         .addParameter("task_id", this.getId())
         .executeAndFetch(Integer.class);
@@ -86,7 +93,7 @@ public class Task {
       List<Category> categories = new ArrayList<Category>();
 
       for (Integer categoryId : categoryIds) {
-        String taskQuery = "Select * From categories WHERE id = :categoryId";
+        String taskQuery = "SELECT * FROM categories WHERE id = :categoryId;";
         Category category = con.createQuery(taskQuery)
           .addParameter("categoryId", categoryId)
           .executeAndFetchFirst(Category.class);
@@ -103,7 +110,7 @@ public class Task {
           .addParameter("id", this.getId())
           .executeUpdate();
 
-      String joinDeleteQuery = "DELETE FROM categories_tasks WHERE task_id = :taskId";
+      String joinDeleteQuery = "DELETE FROM categories_tasks WHERE task_id = :taskId;";
         con.createQuery(joinDeleteQuery)
           .addParameter("taskId", this.getId())
           .executeUpdate();

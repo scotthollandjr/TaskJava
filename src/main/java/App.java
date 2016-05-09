@@ -31,7 +31,8 @@ public class App {
     post("/tasks", (request, response) -> {
       HashMap<String, Object> model = new HashMap<String, Object>();
       String description = request.queryParams("description");
-      Task newTask = new Task(description);
+      String date = request.queryParams("date");
+      Task newTask = new Task(description, date);
       newTask.save();
       response.redirect("/tasks");
       return null;
@@ -40,6 +41,7 @@ public class App {
     post("/categories", (request, response) -> {
       HashMap<String, Object> model = new HashMap<String, Object>();
       String name = request.queryParams("name");
+      String date = request.queryParams("date");
       Category newCategory = new Category(name);
       newCategory.save();
       response.redirect("/categories");
@@ -128,6 +130,22 @@ public class App {
       return null;
     });
 
+    post("/tasks/:id/delete", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      Task task = Task.find(Integer.parseInt(request.params("id")));
+      task.delete();
+      model.put("task", task);
+      model.put("template", "templates/tasks.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
 
+    post("/categories/:id/delete", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      Category category = Category.find(Integer.parseInt(request.params("id")));
+      category.delete();
+      model.put("category", category);
+      model.put("template", "templates/categories.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
   }
 }
