@@ -1,0 +1,10 @@
+<h1>Edit category name</h1>
+
+<form action="/categories/$category.getId()" method="post">
+  <input id="category_id" name="category_id" type="hidden" value="$category.getId()">
+  <label for="newName">Category name</label>
+  <input id="newName" name="newName" type="text">
+  <button type="submit" class="btn btn-success">Edit Category</button>
+</form>
+
+<p><a href="/">Home</a></p>

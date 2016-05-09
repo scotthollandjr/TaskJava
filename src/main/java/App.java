@@ -83,5 +83,51 @@ public class App {
       response.redirect("/tasks/" + taskId);
       return null;
     });
+
+    get("/categories/:id/edit", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      Category category = Category.find(Integer.parseInt(request.params("id")));
+      model.put("category_id", Integer.parseInt(request.params("id")));
+      model.put("category", category);
+      model.put("template", "templates/edit-category.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    post("/categories/:id", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      Category category = Category.find(Integer.parseInt(request.params("id")));
+      String newName = request.queryParams("newName");
+      int categoryId = Integer.parseInt(request.queryParams("category_id"));
+      category.update(newName);
+      model.put("id", categoryId);
+      model.put("category", category);
+      model.put("template", "templates/category.vtl");
+      response.redirect("/categories/" + categoryId);
+      return null;
+    });
+
+    get("/tasks/:id/edit", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      Task task = Task.find(Integer.parseInt(request.params("id")));
+      model.put("task_id", Integer.parseInt(request.params("id")));
+      model.put("task", task);
+      model.put("template", "templates/edit-task.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    post("/tasks/:id", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      Task task = Task.find(Integer.parseInt(request.params("id")));
+      String newDescription = request.queryParams("newDescription");
+      int taskId = Integer.parseInt(request.queryParams("task_id"));
+      task.update(newDescription);
+      model.put("id", taskId);
+      model.put("task", task);
+      model.put("template", "templates/task.vtl");
+      response.redirect("/tasks/" + taskId);
+      return null;
+    });
+
+
   }
 }
