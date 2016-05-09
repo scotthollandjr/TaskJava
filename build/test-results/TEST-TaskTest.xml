@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<<<<<<< HEAD
 <testsuite name="TaskTest" tests="12" skipped="0" failures="0" errors="0" timestamp="2016-05-09T16:25:05" hostname="epicodus-79.local" time="0.159">
   <properties/>
   <testcase name="save_savesObjectIntoDatabase_true" classname="TaskTest" time="0.013"/>
@@ -13,6 +14,22 @@
   <testcase name="Task_instantiatesCorrectly_true" classname="TaskTest" time="0.004"/>
   <testcase name="find_findsTaskInDatabase_true" classname="TaskTest" time="0.012"/>
   <testcase name="update_updatesTaskDescription_true" classname="TaskTest" time="0.015"/>
+=======
+<testsuite name="TaskTest" tests="12" skipped="0" failures="0" errors="0" timestamp="2016-05-09T16:33:49" hostname="epicodus-79.local" time="0.163">
+  <properties/>
+  <testcase name="save_savesObjectIntoDatabase_true" classname="TaskTest" time="0.015"/>
+  <testcase name="equals_returnsTrueIfDescriptionsAretheSame_true" classname="TaskTest" time="0.005"/>
+  <testcase name="addCategory_addsCategoryToTask" classname="TaskTest" time="0.022"/>
+  <testcase name="getCategories_returnsAllCategories_List" classname="TaskTest" time="0.022"/>
+  <testcase name="delete_deletesTask_true" classname="TaskTest" time="0.017"/>
+  <testcase name="all_emptyAtFirst_0" classname="TaskTest" time="0.007"/>
+  <testcase name="delete_deletesAllTasksAndCategoriesAssociations" classname="TaskTest" time="0.024"/>
+  <testcase name="getDescription_taskInstantiatesWithDescription_String" classname="TaskTest" time="0.004"/>
+  <testcase name="save_assignsIdToObject_int" classname="TaskTest" time="0.012"/>
+  <testcase name="Task_instantiatesCorrectly_true" classname="TaskTest" time="0.005"/>
+  <testcase name="find_findsTaskInDatabase_true" classname="TaskTest" time="0.013"/>
+  <testcase name="update_updatesTaskDescription_true" classname="TaskTest" time="0.016"/>
+>>>>>>> 8bb1f281a16e747f052b7942230f74d5bd9882d3
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

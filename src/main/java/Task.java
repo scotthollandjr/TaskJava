@@ -67,6 +67,7 @@ public class Task {
   }
 
   public void addCategory(Category category) {
+<<<<<<< HEAD
     try(Connection con = DB.sql2o.open()) {
       String sql = "INSERT INTO categories_tasks (category_id, task_id) VALUES (:category_id, :task_id)";
       con.createQuery(sql)
@@ -75,6 +76,16 @@ public class Task {
         .executeUpdate();
     }
   }
+=======
+  try(Connection con = DB.sql2o.open()) {
+    String sql = "INSERT INTO categories_tasks (category_id, task_id) VALUES (:category_id, :task_id)";
+    con.createQuery(sql)
+      .addParameter("category_id", category.getId())
+      .addParameter("task_id", this.getId())
+      .executeUpdate();
+  }
+}
+>>>>>>> 8bb1f281a16e747f052b7942230f74d5bd9882d3
 
   public List<Category> getCategories() {
     try(Connection con = DB.sql2o.open()){
@@ -95,6 +106,10 @@ public class Task {
       return categories;
     }
   }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 8bb1f281a16e747f052b7942230f74d5bd9882d3
   public void delete() {
     try(Connection con = DB.sql2o.open()) {
       String deleteQuery = "DELETE FROM tasks WHERE id = :id;";
@@ -108,4 +123,8 @@ public class Task {
           .executeUpdate();
     }
   }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 8bb1f281a16e747f052b7942230f74d5bd9882d3
 }

@@ -1,8 +1,15 @@
+<<<<<<< HEAD
 import org.junit.*;
 import java.util.List;
 import java.util.ArrayList;
 import static org.junit.Assert.*;
 import org.sql2o.*;
+=======
+import org.sql2o.*;
+import org.junit.*;
+import static org.junit.Assert.*;
+import java.util.List;
+>>>>>>> 8bb1f281a16e747f052b7942230f74d5bd9882d3
 
 public class TaskTest {
 
@@ -16,17 +23,31 @@ public class TaskTest {
   }
 
   @Test
+<<<<<<< HEAD
   public void getDescription_instantiatesWithDescription_String() {
     Task myTask = new Task("Mow the lawn");
     assertEquals("Mow the lawn", myTask.getDescription());
   }
   @Test
   public void all_emptyAtFirst() {
+=======
+  public void getDescription_taskInstantiatesWithDescription_String() {
+    Task myTask = new Task("Mow the lawn");
+    assertEquals("Mow the lawn", myTask.getDescription());
+  }
+
+  @Test
+  public void all_emptyAtFirst_0() {
+>>>>>>> 8bb1f281a16e747f052b7942230f74d5bd9882d3
     assertEquals(0, Task.all().size());
   }
 
   @Test
+<<<<<<< HEAD
   public void equals_returnsTrueIfDescriptionsAretheSame() {
+=======
+  public void equals_returnsTrueIfDescriptionsAretheSame_true() {
+>>>>>>> 8bb1f281a16e747f052b7942230f74d5bd9882d3
     Task firstTask = new Task("Mow the lawn");
     Task secondTask = new Task("Mow the lawn");
     assertTrue(firstTask.equals(secondTask));
@@ -104,4 +125,8 @@ public class TaskTest {
     myTask.delete();
     assertEquals(0, myCategory.getTasks().size());
   }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 8bb1f281a16e747f052b7942230f74d5bd9882d3
 }
