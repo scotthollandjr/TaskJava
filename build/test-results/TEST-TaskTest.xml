@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="TaskTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2016-05-02T22:57:54" hostname="epicodus-54.local" time="0.105">
+<testsuite name="TaskTest" tests="12" skipped="0" failures="0" errors="0" timestamp="2016-05-09T15:52:47" hostname="epicodus-79.local" time="0.177">
   <properties/>
-  <testcase name="equals_returnsTrueIfDescriptionsAretheSame" classname="TaskTest" time="0.006"/>
-  <testcase name="find_returnsNullWhenNoTaskFound_null" classname="TaskTest" time="0.009"/>
-  <testcase name="save_returnsTrueIfDescriptionsAretheSame" classname="TaskTest" time="0.014"/>
-  <testcase name="save_savesCategoryIdIntoDB_true" classname="TaskTest" time="0.018"/>
-  <testcase name="task_instantiatesCorrectly_true" classname="TaskTest" time="0.004"/>
-  <testcase name="getId_tasksInstantiateWithAnID_1" classname="TaskTest" time="0.01"/>
-  <testcase name="getDescription_instantiatesWithDescription_String" classname="TaskTest" time="0.005"/>
-  <testcase name="all_emptyAtFirst" classname="TaskTest" time="0.009"/>
-  <testcase name="save_assignsIdToObject" classname="TaskTest" time="0.014"/>
+  <testcase name="save_savesObjectIntoDatabase_true" classname="TaskTest" time="0.015"/>
+  <testcase name="equals_returnsTrueIfDescriptionsAretheSame" classname="TaskTest" time="0.004"/>
+  <testcase name="addCategory_addsCategoryToTask" classname="TaskTest" time="0.024"/>
+  <testcase name="getCategories_returnsAllCategories_List" classname="TaskTest" time="0.022"/>
+  <testcase name="delete_deletesTask_true" classname="TaskTest" time="0.017"/>
+  <testcase name="getDescription_instantiatesWithDescription_String" classname="TaskTest" time="0.004"/>
+  <testcase name="all_emptyAtFirst" classname="TaskTest" time="0.007"/>
+  <testcase name="delete_deletesAllTasksAndCategoriesAssociations" classname="TaskTest" time="0.033"/>
+  <testcase name="save_assignsIdToObject_int" classname="TaskTest" time="0.014"/>
+  <testcase name="Task_instantiatesCorrectly_true" classname="TaskTest" time="0.004"/>
   <testcase name="find_findsTaskInDatabase_true" classname="TaskTest" time="0.014"/>
+  <testcase name="update_updatesTaskDescription_true" classname="TaskTest" time="0.016"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

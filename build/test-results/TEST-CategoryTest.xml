@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="CategoryTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2016-05-02T22:57:54" hostname="epicodus-54.local" time="0.091">
+<testsuite name="CategoryTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2016-05-09T15:52:47" hostname="epicodus-79.local" time="0.272">
   <properties/>
-  <testcase name="getTasks_retrievesALlTasksFromDatabase_tasksList" classname="CategoryTest" time="0.023"/>
-  <testcase name="equals_returnsTrueIfNamesAretheSame" classname="CategoryTest" time="0.004"/>
-  <testcase name="getName_categoryInstantiatesWithName_String" classname="CategoryTest" time="0.004"/>
-  <testcase name="Category_instantiatesCorrectly_true" classname="CategoryTest" time="0.004"/>
-  <testcase name="all_emptyAtFirst" classname="CategoryTest" time="0.008"/>
+  <testcase name="save_savesObjectIntoDatabase_true" classname="CategoryTest" time="0.135"/>
+  <testcase name="getName_categoryInstantiatesWithName_String" classname="CategoryTest" time="0.006"/>
+  <testcase name="Category_instantiatesCorrectly_true" classname="CategoryTest" time="0.005"/>
+  <testcase name="getTasks_returnsAllTasks_List" classname="CategoryTest" time="0.032"/>
+  <testcase name="all_emptyAtFirst_0" classname="CategoryTest" time="0.008"/>
   <testcase name="find_findCategoryInDatabase_true" classname="CategoryTest" time="0.015"/>
-  <testcase name="save_savesIntoDatabase_true" classname="CategoryTest" time="0.015"/>
-  <testcase name="save_assignsIdToObject" classname="CategoryTest" time="0.016"/>
+  <testcase name="delete_deletesAllTasksAndCategoriesAssociations" classname="CategoryTest" time="0.03"/>
+  <testcase name="save_assignsIdToObject_int" classname="CategoryTest" time="0.013"/>
+  <testcase name="equals_returnsTrueIfNamesAretheSame_true" classname="CategoryTest" time="0.005"/>
+  <testcase name="addTask_addsTaskToCategory_true" classname="CategoryTest" time="0.022"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

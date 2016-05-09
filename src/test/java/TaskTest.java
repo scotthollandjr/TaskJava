@@ -1,4 +1,6 @@
 import org.junit.*;
+import java.util.List;
+import java.util.ArrayList;
 import static org.junit.Assert.*;
 import org.sql2o.*;
 
@@ -70,4 +72,36 @@ public class TaskTest {
     assertEquals(null, Task.find(myTaskId));
   }
 
+  @Test
+  public void addCategory_addsCategoryToTask() {
+    Category myCategory = new Category("Household chores");
+    myCategory.save();
+    Task myTask = new Task("Mow the lawn");
+    myTask.save();
+    myTask.addCategory(myCategory);
+    Category savedCategory = myTask.getCategories().get(0);
+    assertTrue(myCategory.equals(savedCategory));
+  }
+
+  @Test
+  public void getCategories_returnsAllCategories_List() {
+    Category myCategory = new Category("Household chores");
+    myCategory.save();
+    Task myTask = new Task("Mow the lawn");
+    myTask.save();
+    myTask.addCategory(myCategory);
+    List savedCategories = myTask.getCategories();
+    assertEquals(1, savedCategories.size());
+  }
+
+  @Test
+  public void delete_deletesAllTasksAndCategoriesAssociations() {
+    Category myCategory = new Category("Household chores");
+    myCategory.save();
+    Task myTask = new Task("Mow the lawn");
+    myTask.save();
+    myTask.addCategory(myCategory);
+    myTask.delete();
+    assertEquals(0, myCategory.getTasks().size());
+  }
 }
