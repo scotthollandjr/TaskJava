@@ -131,14 +131,15 @@ public class App {
       return null;
     });
 
-    post("/tasks/:id/delete", (request, response) -> {
-      HashMap<String, Object> model = new HashMap<String, Object>();
-      Task task = Task.find(Integer.parseInt(request.params("id")));
-      task.delete();
-      model.put("task", task);
-      model.put("template", "templates/tasks.vtl");
-      return new ModelAndView(model, layout);
-    }, new VelocityTemplateEngine());
+    // post("/tasks/deleted", (request, response) -> {
+    //   HashMap<String, Object> model = new HashMap<String, Object>();
+    //   Task task = Task.find(Integer.parseInt(request.params("id")));
+    //   task.delete();
+    //   model.put("task", task);
+    //   model.put("template", "templates/tasks.vtl");
+    //   response.redirect("/tasks");
+    //   return null;
+    // });
 
     post("/categories/:id/delete", (request, response) -> {
       HashMap<String, Object> model = new HashMap<String, Object>();
@@ -149,13 +150,31 @@ public class App {
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
-    post("/tasks/:id/complete", (request, response) -> {
+    // post("/tasks-complete", (request, response) -> {
+    //   HashMap<String, Object> model = new HashMap<String, Object>();
+    //   Task task = Task.find(Integer.parseInt(request.params("id")));
+    //   task.complete();
+    //   model.put("task", task);
+    //   model.put("template", "templates/tasks.vtl");
+    //   String url = String.format("/tasks");
+    //   response.redirect(url);
+    //   return null;
+    // });
+
+    get("/tasks/:id/delete", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      Task task = Task.find(Integer.parseInt(request.params("id")));
+      task.delete();
+      response.redirect("/tasks");
+      return null;
+    });
+
+    get("/tasks/:id/complete", (request, response) -> {
       HashMap<String, Object> model = new HashMap<String, Object>();
       Task task = Task.find(Integer.parseInt(request.params("id")));
       task.complete();
-      model.put("task", task);
-      model.put("template", "templates/tasks.vtl");
-      return new ModelAndView(model, layout);
-    }, new VelocityTemplateEngine());
+      response.redirect("/tasks");
+      return null;
+    });
   }
 }
