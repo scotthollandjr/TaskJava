@@ -77,11 +77,7 @@ public class CategoryTest {
     List savedTasks = myCategory.getTasks();
     assertEquals(1, savedTasks.size());
   }
-<<<<<<< HEAD
-  
-=======
 
->>>>>>> 8bb1f281a16e747f052b7942230f74d5bd9882d3
   @Test
   public void delete_deletesAllTasksAndCategoriesAssociations() {
     Category myCategory = new Category("Household chores");
@@ -92,8 +88,4 @@ public class CategoryTest {
     myCategory.delete();
     assertEquals(0, myTask.getCategories().size());
   }
-<<<<<<< HEAD
-=======
-
->>>>>>> 8bb1f281a16e747f052b7942230f74d5bd9882d3
 }

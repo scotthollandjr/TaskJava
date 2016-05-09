@@ -18,8 +18,4 @@ public class DatabaseRule extends ExternalResource {
       con.createQuery(deleteCategoriesQuery).executeUpdate();
     }
   }
-<<<<<<< HEAD
-
-=======
->>>>>>> 8bb1f281a16e747f052b7942230f74d5bd9882d3
 }

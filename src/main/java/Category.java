@@ -65,22 +65,6 @@ public class Category {
         .executeUpdate();
     }
   }
-<<<<<<< HEAD
-  public void delete() {
-    try(Connection con = DB.sql2o.open()) {
-      String deleteQuery = "DELETE FROM categories WHERE id = :id;";
-        con.createQuery(deleteQuery)
-          .addParameter("id", this.getId())
-          .executeUpdate();
-
-      String joinDeleteQuery = "DELETE FROM categories_tasks WHERE category_id = :categoryId";
-        con.createQuery(joinDeleteQuery)
-          .addParameter("categoryId", this.getId())
-          .executeUpdate();
-    }
-  }
-=======
->>>>>>> 8bb1f281a16e747f052b7942230f74d5bd9882d3
 
   public List<Task> getTasks() {
     try(Connection con = DB.sql2o.open()){
@@ -101,8 +85,6 @@ public class Category {
       return tasks;
     }
   }
-<<<<<<< HEAD
-=======
 
   public void delete() {
     try(Connection con = DB.sql2o.open()) {
@@ -117,5 +99,4 @@ public class Category {
           .executeUpdate();
     }
   }
->>>>>>> 8bb1f281a16e747f052b7942230f74d5bd9882d3
 }
